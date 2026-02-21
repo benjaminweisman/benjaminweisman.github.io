@@ -79,6 +79,30 @@ nav {
 
 .nav-links a:hover { color: var(--accent); }
 
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
 /* SECTIONS */
 .section {
   max-width: 1100px;
@@ -147,19 +171,6 @@ nav {
   flex-wrap: wrap;
 }
 
-.hero-resume {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-top: 1rem;
-  flex-wrap: wrap;
-}
-
-.resume-label {
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-  font-weight: 500;
-}
 
 .btn {
   display: inline-flex;
@@ -714,16 +725,17 @@ footer {
   background: var(--border);
 }
 
-/* ANIMATIONS */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+/* SCROLL REVEAL */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
 }
 
-.animate { animation: fadeUp 0.6s ease-out forwards; }
-.delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.2s; }
-.delay-3 { animation-delay: 0.3s; }
+.reveal.revealed {
+  opacity: 1;
+  transform: none;
+}
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
@@ -736,9 +748,24 @@ footer {
   .contact-grid { grid-template-columns: 1fr; }
   .arch-diagram { grid-template-columns: 1fr 1fr; }
   .arch-step::after { display: none; }
-  .nav-links { gap: 1rem; }
-  .nav-links a { font-size: 0.8rem; }
-  .hero-resume { justify-content: center; }
+  .nav-hamburger { display: flex; }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: rgba(250, 250, 248, 0.97);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0.5rem 0;
+    gap: 0;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links li { padding: 0.85rem 2rem; border-bottom: 1px solid var(--border); }
+  .nav-links li:last-child { border-bottom: none; }
+  .nav-links a { font-size: 1rem; color: var(--text); }
 }
 </style>
 </head>
@@ -748,12 +775,15 @@ footer {
 <nav>
   <div class="nav-inner">
     <a href="#" class="nav-logo">BW</a>
-    <ul class="nav-links">
+    <ul class="nav-links" id="navLinks">
       <li><a href="#experience">Experience</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
@@ -768,9 +798,7 @@ footer {
         <a href="#contact" class="btn btn-primary">Get in Touch</a>
         <a href="https://github.com/benjaminweisman" target="_blank" class="btn btn-outline">GitHub ↗</a>
         <a href="https://linkedin.com/in/benjamin-weisman" target="_blank" class="btn btn-outline">LinkedIn ↗</a>
-      </div>
-      <div class="hero-resume">
-        <a href="https://docs.google.com/document/d/1-X29oKrZ8azQZMxTxPi9eTjDu2-p69ekRFf4MZmq06Q/export?format=pdf" target="_blank" class="btn btn-outline" style="font-size:0.82rem;padding:0.5rem 1rem;">Resume ↓</a>
+        <a href="https://docs.google.com/document/d/1-X29oKrZ8azQZMxTxPi9eTjDu2-p69ekRFf4MZmq06Q/export?format=pdf" target="_blank" class="btn btn-outline">Resume ↓</a>
       </div>
     </div>
     <img src="crop.jpg" alt="Benjamin Weisman" class="hero-photo">
@@ -1461,6 +1489,35 @@ recommendBtn.addEventListener('click', () => {
       <div class="result-reason">${getReasonText(selectedGames, r.game)}</div>
     </div>
   `).join('');
+});
+
+// Mobile nav
+const hamburger = document.getElementById('navHamburger');
+const navLinks = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  navLinks.classList.toggle('open');
+});
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open');
+  navLinks.classList.remove('open');
+}));
+
+// Scroll reveal
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('revealed'), entry.target.dataset.delay || 0);
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.timeline-item, .skill-card, .project-card').forEach(el => {
+  el.classList.add('reveal');
+  const siblings = [...el.parentElement.children].filter(c => c.classList.contains(el.classList[1]));
+  el.dataset.delay = siblings.indexOf(el) * 80;
+  revealObserver.observe(el);
 });
 
 // Contact form
