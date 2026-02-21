@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Benjamin Weisman — Software & Data Engineer with an M.S. in Data Science. 4+ years building ML models, data pipelines, and full-stack applications.">
+<meta property="og:title" content="Benjamin Weisman — Software & Data Engineer">
+<meta property="og:description" content="Software & Data Engineer with expertise in Python, machine learning, and full-stack development.">
+<meta property="og:type" content="website">
 <title>Benjamin Weisman — Software & Data Engineer</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -141,6 +145,20 @@ nav {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+}
+
+.hero-resume {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.resume-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
 }
 
 .btn {
@@ -361,6 +379,13 @@ nav {
   color: var(--text-secondary);
 }
 
+.project-links {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
 /* RECOMMENDER DEMO */
 .demo-section {
   background: var(--surface);
@@ -379,6 +404,13 @@ nav {
 .demo-subtitle {
   color: var(--text-secondary);
   font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+.demo-note {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-style: italic;
   margin-bottom: 2rem;
 }
 
@@ -706,6 +738,7 @@ footer {
   .arch-step::after { display: none; }
   .nav-links { gap: 1rem; }
   .nav-links a { font-size: 0.8rem; }
+  .hero-resume { justify-content: center; }
 }
 </style>
 </head>
@@ -736,6 +769,9 @@ footer {
         <a href="https://github.com/benjaminweisman" target="_blank" class="btn btn-outline">GitHub ↗</a>
         <a href="https://linkedin.com/in/benjamin-weisman" target="_blank" class="btn btn-outline">LinkedIn ↗</a>
       </div>
+      <div class="hero-resume">
+        <a href="https://docs.google.com/document/d/1-X29oKrZ8azQZMxTxPi9eTjDu2-p69ekRFf4MZmq06Q/export?format=pdf" target="_blank" class="btn btn-outline" style="font-size:0.82rem;padding:0.5rem 1rem;">Resume ↓</a>
+      </div>
     </div>
     <img src="crop.jpg" alt="Benjamin Weisman" class="hero-photo">
   </div>
@@ -750,6 +786,22 @@ footer {
   <p class="section-subtitle">From blockchain data engineering to cybersecurity, I've shipped real products across diverse domains.</p>
   
   <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-meta">
+        <span class="timeline-date">2022 — Present</span>
+        <span class="timeline-company">Freelance</span>
+        <span class="timeline-location">Remote / Sarasota, FL</span>
+      </div>
+      <div>
+        <div class="timeline-role">AI & Software Engineer</div>
+        <ul class="timeline-desc">
+          <li>Architected and deployed full-stack web applications and data tools using Python, Vue.js, and AWS, delivering scalable solutions for diverse client needs.</li>
+          <li>Built automated ML workflows and data engineering pipelines, reducing manual workload by 60%+.</li>
+          <li>Engineered custom automation scripts for data extraction, streamlining reporting and analysis workflows across multiple client engagements.</li>
+        </ul>
+      </div>
+    </div>
+
     <div class="timeline-item">
       <div class="timeline-meta">
         <span class="timeline-date">2021 — 2022</span>
@@ -769,7 +821,7 @@ footer {
 
     <div class="timeline-item">
       <div class="timeline-meta">
-        <span class="timeline-date">2017</span>
+        <span class="timeline-date">2016 — 2017</span>
         <span class="timeline-company">Sylint</span>
         <span class="timeline-location">Sarasota, FL</span>
       </div>
@@ -1013,6 +1065,9 @@ tag_matrix = tfidf.<span class="fn">fit_transform</span>(games[<span class="str"
           <span>IPFS</span>
           <span>Ethereum</span>
         </div>
+        <div class="project-links">
+          <a href="https://github.com/benjaminweisman/Decentralized-Post" target="_blank" class="btn btn-outline">GitHub ↗</a>
+        </div>
       </div>
     </div>
 
@@ -1021,12 +1076,47 @@ tag_matrix = tfidf.<span class="fn">fit_transform</span>(games[<span class="str"
       <div class="project-content">
         <div class="project-tag">Full Stack</div>
         <h3>NCF Course Scheduling Application</h3>
-        <p>Engineered and deployed a course scheduling app using Amazon EC2, Django, and SQL, achieving a 90% reduction in course selection time compared to the legacy paper contract system.</p>
+        <p>Engineered and deployed a course scheduling app using Amazon EC2, Django, and SQL, serving 800+ students and reducing course selection time by 90% compared to the legacy paper contract system.</p>
         <div class="project-tech">
           <span>Django</span>
           <span>AWS EC2</span>
           <span>SQL</span>
           <span>Python</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SPOTIFY DASHBOARD -->
+    <div class="project-card">
+      <div class="project-content">
+        <div class="project-tag">Analytics</div>
+        <h3>Spotify Analytics Dashboard</h3>
+        <p>Personal analytics dashboard that surfaces listening trends, top artists, tracks, and genre breakdowns from Spotify data. Built to explore real-world API integration and interactive data visualization.</p>
+        <div class="project-tech">
+          <span>TypeScript</span>
+          <span>Spotify API</span>
+          <span>Data Visualization</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/benjaminweisman/Spotify-Dashboard" target="_blank" class="btn btn-outline">GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALGORITHMS FOR DATA SCIENCE -->
+    <div class="project-card">
+      <div class="project-content">
+        <div class="project-tag">Coursework</div>
+        <h3>Algorithms for Data Science</h3>
+        <p>Graduate-level implementations of core data science and ML algorithms, including clustering, dimensionality reduction, graph algorithms, and optimization methods. Completed as part of the M.S. Data Science program at NCF.</p>
+        <div class="project-tech">
+          <span>Python</span>
+          <span>NumPy</span>
+          <span>scikit-learn</span>
+          <span>Graph Algorithms</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/benjaminweisman/Algorithms-for-Data-Science" target="_blank" class="btn btn-outline">GitHub ↗</a>
         </div>
       </div>
     </div>
@@ -1064,7 +1154,7 @@ tag_matrix = tfidf.<span class="fn">fit_transform</span>(games[<span class="str"
         </a>
       </div>
     </div>
-    <form class="contact-form" action="https://formspree.io/f/xgoloqvq" method="POST">
+    <form class="contact-form" action="https://formspree.io/f/xgoloqvq" method="POST" onsubmit="handleSubmit(event)">
       <input type="text" name="name" placeholder="Your Name" required>
       <input type="email" name="email" placeholder="Your Email" required>
       <input type="text" name="subject" placeholder="Subject">
@@ -1374,12 +1464,33 @@ recommendBtn.addEventListener('click', () => {
 });
 
 // Contact form
-function handleSubmit(e) {
+async function handleSubmit(e) {
   e.preventDefault();
-  const btn = e.target.querySelector('button');
-  btn.textContent = 'Message Sent! ✓';
-  btn.style.background = '#16a34a';
-  setTimeout(() => { btn.textContent = 'Send Message'; btn.style.background = ''; }, 3000);
+  const form = e.target;
+  const btn = form.querySelector('button[type="submit"]');
+  const original = btn.textContent;
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+  try {
+    const res = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      btn.textContent = 'Message Sent! ✓';
+      btn.style.background = '#16a34a';
+      form.reset();
+    } else {
+      btn.textContent = 'Error — try again';
+      btn.style.background = '#dc2626';
+    }
+  } catch {
+    btn.textContent = 'Error — try again';
+    btn.style.background = '#dc2626';
+  }
+  btn.disabled = false;
+  setTimeout(() => { btn.textContent = original; btn.style.background = ''; }, 3000);
 }
 </script>
 </body>
