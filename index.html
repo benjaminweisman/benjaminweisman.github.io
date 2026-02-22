@@ -471,6 +471,46 @@ nav {
   margin-bottom: 2rem;
 }
 
+.game-ticker-wrap {
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+.game-ticker {
+  display: flex;
+  gap: 0;
+  width: max-content;
+  animation: gameTicker 40s linear infinite;
+}
+
+.game-ticker:hover { animation-play-state: paused; }
+
+@keyframes gameTicker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.game-ticker-item {
+  white-space: nowrap;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  margin-right: 0.5rem;
+  cursor: default;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.game-ticker-item:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
 .demo-search-wrap {
   position: relative;
   margin-bottom: 1.5rem;
@@ -1054,7 +1094,13 @@ footer {
           <h3>🎮 Try the Recommender</h3>
           <p class="demo-subtitle">Search for games you like, select up to 5, then click recommend.</p>
 		  <p class="demo-note">Note: This demo uses a limited database.</p>
-          
+
+          <div class="game-ticker-wrap">
+            <div class="game-ticker" id="gameTicker">
+              <!-- filled by JS -->
+            </div>
+          </div>
+
           <div class="demo-search-wrap">
             <input type="text" class="demo-search" id="gameSearch" placeholder="Search for a game... (e.g. Portal, Stardew Valley, Dark Souls)" autocomplete="off">
             <ul class="suggest-list" id="suggestList"></ul>
@@ -1505,6 +1551,23 @@ const suggestList = document.getElementById('suggestList');
 const selectedContainer = document.getElementById('selectedGames');
 const recommendBtn = document.getElementById('recommendBtn');
 const resultsGrid = document.getElementById('resultsGrid');
+
+// Populate scrolling game ticker
+(function() {
+  const ticker = document.getElementById('gameTicker');
+  if (!ticker) return;
+  const featured = [
+    "Counter-Strike 2","Elden Ring","Baldur's Gate 3","Hades","Stardew Valley",
+    "The Witcher 3: Wild Hunt","Portal 2","Hollow Knight","Minecraft","Cyberpunk 2077",
+    "Red Dead Redemption 2","Slay the Spire","Outer Wilds","God of War","Celeste",
+    "Dark Souls III","Balatro","Factorio","Valheim","Apex Legends",
+    "Disco Elysium","Dead Cells","Terraria","Civilization VI","It Takes Two",
+    "Sekiro: Shadows Die Twice","Risk of Rain 2","No Man's Sky","Subnautica","Phasmophobia"
+  ];
+  // Duplicate for seamless loop
+  const all = [...featured, ...featured];
+  ticker.innerHTML = all.map(g => `<span class="game-ticker-item">${g}</span>`).join('');
+})();
 
 searchInput.addEventListener('input', (e) => {
   const q = e.target.value.toLowerCase().trim();
